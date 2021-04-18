@@ -1,3 +1,11 @@
+这是VINS-Mono开源代码的注释版本，方便大家学习这款非常优秀的VIO框架，原git库地址https://github.com/HKUST-Aerial-Robotics/VINS-Mono
+
+关于代码的注释会不定期更新，欢迎关注
+
+如果本仓库对你有用，欢迎star一下满足本人的虚荣心～
+
+PS：Momenta 语义slam，多传感器融合，自动标定还有大量HC，有意向同学可以联系xieqi@momenta.ai
+
 # VINS-Mono
 ## A Robust and Versatile Monocular Visual-Inertial State Estimator
 
