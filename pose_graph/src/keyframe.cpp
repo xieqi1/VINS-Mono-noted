@@ -13,11 +13,11 @@ static void reduceVector(vector<Derived> &v, vector<uchar> status)
 // create keyframe online
 /**
  * @brief Construct a new Key Frame:: Key Frame object，创建一个KF对象，计算已有特征点的描述子，同时额外提取fast角点并计算描述子
- * 
+ *
  * @param[in] _time_stamp KF的时间戳
  * @param[in] _index KF的索引
  * @param[in] _vio_T_w_i vio节点中的位姿
- * @param[in] _vio_R_w_i 
+ * @param[in] _vio_R_w_i
  * @param[in] _image 对应的原图
  * @param[in] _point_3d KF对应VIO节点中的世界坐标
  * @param[in] _point_2d_uv 像素坐标
@@ -35,7 +35,7 @@ KeyFrame::KeyFrame(double _time_stamp, int _index, Vector3d &_vio_T_w_i, Matrix3
 	vio_R_w_i = _vio_R_w_i;
 	T_w_i = vio_T_w_i;
 	R_w_i = vio_R_w_i;
-	origin_vio_T = vio_T_w_i;		
+	origin_vio_T = vio_T_w_i;
 	origin_vio_R = vio_R_w_i;
 	image = _image.clone();
 	cv::resize(image, thumbnail, cv::Size(80, 60)); // 这个缩小尺寸应该是为了可视化
@@ -57,19 +57,19 @@ KeyFrame::KeyFrame(double _time_stamp, int _index, Vector3d &_vio_T_w_i, Matrix3
 // load previous keyframe
 /**
  * @brief Construct a new Key Frame:: Key Frame object从已有的地图中加载KF，就是一些简单的赋值操作
- * 
- * @param[in] _time_stamp 
- * @param[in] _index 
- * @param[in] _vio_T_w_i 
- * @param[in] _vio_R_w_i 
- * @param[in] _T_w_i 
- * @param[in] _R_w_i 
- * @param[in] _image 
- * @param[in] _loop_index 
- * @param[in] _loop_info 
- * @param[in] _keypoints 
- * @param[in] _keypoints_norm 
- * @param[in] _brief_descriptors 
+ *
+ * @param[in] _time_stamp
+ * @param[in] _index
+ * @param[in] _vio_T_w_i
+ * @param[in] _vio_R_w_i
+ * @param[in] _T_w_i
+ * @param[in] _R_w_i
+ * @param[in] _image
+ * @param[in] _loop_index
+ * @param[in] _loop_info
+ * @param[in] _keypoints
+ * @param[in] _keypoints_norm
+ * @param[in] _brief_descriptors
  */
 KeyFrame::KeyFrame(double _time_stamp, int _index, Vector3d &_vio_T_w_i, Matrix3d &_vio_R_w_i, Vector3d &_T_w_i, Matrix3d &_R_w_i,
 					cv::Mat &_image, int _loop_index, Eigen::Matrix<double, 8, 1 > &_loop_info,
@@ -103,7 +103,7 @@ KeyFrame::KeyFrame(double _time_stamp, int _index, Vector3d &_vio_T_w_i, Matrix3
 
 /**
  * @brief 计算已有特征点的描述子
- * 
+ *
  */
 void KeyFrame::computeWindowBRIEFPoint()
 {
@@ -154,15 +154,15 @@ void BriefExtractor::operator() (const cv::Mat &im, vector<cv::KeyPoint> &keys, 
 
 /**
  * @brief 暴力匹配法，通过遍历所有的候选描述子得到最佳匹配
- * 
+ *
  * @param[in] window_descriptor 当前帧的一个描述子
  * @param[in] descriptors_old 回环帧的描述子集合
  * @param[in] keypoints_old 回环帧像素坐标集合
  * @param[in] keypoints_old_norm 回环帧归一化坐标集合
  * @param[out] best_match 最佳匹配的像素坐标
  * @param[out] best_match_norm 最佳匹配的归一化相机坐标
- * @return true 
- * @return false 
+ * @return true
+ * @return false
  */
 bool KeyFrame::searchInAera(const BRIEF::bitset window_descriptor,
                             const std::vector<BRIEF::bitset> &descriptors_old,
@@ -198,7 +198,7 @@ bool KeyFrame::searchInAera(const BRIEF::bitset window_descriptor,
 
 /**
  * @brief 将当前帧的描述子依次和回环帧描述子进行匹配，得到匹配结果
- * 
+ *
  * @param[out] matched_2d_old 匹配回环帧点的像素坐标集合
  * @param[out] matched_2d_old_norm 匹配回环帧点的归一化相机坐标集合
  * @param[out] status 状态位
@@ -258,12 +258,12 @@ void KeyFrame::FundmantalMatrixRANSAC(const std::vector<cv::Point2f> &matched_2d
 
 /**
  * @brief 通过PNP对当前帧和回环是否构成回环进行校验
- * 
+ *
  * @param[in] matched_2d_old_norm 回环帧2d归一化坐标
  * @param[in] matched_3d 当前帧3d地图点
- * @param[out] status 
- * @param[out] PnP_T_old 
- * @param[out] PnP_R_old 
+ * @param[out] status
+ * @param[out] PnP_T_old
+ * @param[out] PnP_R_old
  */
 void KeyFrame::PnPRANSAC(const vector<cv::Point2f> &matched_2d_old_norm,
                          const std::vector<cv::Point3f> &matched_3d,
@@ -327,10 +327,10 @@ void KeyFrame::PnPRANSAC(const vector<cv::Point2f> &matched_2d_old_norm,
 
 /**
  * @brief 寻找两帧之间联系，确定是否回环
- * 
- * @param[in] old_kf 
- * @return true 
- * @return false 
+ *
+ * @param[in] old_kf
+ * @return true
+ * @return false
  */
 bool KeyFrame::findConnection(KeyFrame* old_kf)
 {
@@ -349,12 +349,12 @@ bool KeyFrame::findConnection(KeyFrame* old_kf)
 
 	TicToc t_match;
 	#if 0
-		if (DEBUG_IMAGE)    
+		if (DEBUG_IMAGE)
 	    {
 	        cv::Mat gray_img, loop_match_img;
 	        cv::Mat old_img = old_kf->image;
 	        cv::hconcat(image, old_img, gray_img);
-	        cvtColor(gray_img, loop_match_img, CV_GRAY2RGB);
+	        cvtColor(gray_img, loop_match_img, cv::COLOR_GRAY2RGB);
 	        for(int i = 0; i< (int)point_2d_uv.size(); i++)
 	        {
 	            cv::Point2f cur_pt = point_2d_uv[i];
@@ -385,7 +385,7 @@ bool KeyFrame::findConnection(KeyFrame* old_kf)
 	reduceVector(matched_id, status);	// 当前帧对应的地图点索引
 	//printf("search by des finish\n");
 
-	#if 0 
+	#if 0
 		if (DEBUG_IMAGE)
 	    {
 			int gap = 10;
@@ -394,7 +394,7 @@ bool KeyFrame::findConnection(KeyFrame* old_kf)
             cv::Mat old_img = old_kf->image;
             cv::hconcat(image, gap_image, gap_image);
             cv::hconcat(gap_image, old_img, gray_img);
-            cvtColor(gray_img, loop_match_img, CV_GRAY2RGB);
+            cvtColor(gray_img, loop_match_img, cv::COLOR_GRAY2RGB);
 	        for(int i = 0; i< (int)matched_2d_cur.size(); i++)
 	        {
 	            cv::Point2f cur_pt = matched_2d_cur[i];
@@ -426,9 +426,9 @@ bool KeyFrame::findConnection(KeyFrame* old_kf)
 	        path2 <<  "/home/tony-ws1/raw_data/loop_image/"
 	                << index << "-"
 	                << old_kf->index << "-" << "1descriptor_match_2.jpg";
-	        cv::imwrite( path2.str().c_str(), old_img);	        
+	        cv::imwrite( path2.str().c_str(), old_img);
 	        */
-	        
+
 	    }
 	#endif
 	status.clear();
@@ -450,7 +450,7 @@ bool KeyFrame::findConnection(KeyFrame* old_kf)
             cv::Mat old_img = old_kf->image;
             cv::hconcat(image, gap_image, gap_image);
             cv::hconcat(gap_image, old_img, gray_img);
-            cvtColor(gray_img, loop_match_img, CV_GRAY2RGB);
+            cvtColor(gray_img, loop_match_img, cv::COLOR_GRAY2RGB);
 	        for(int i = 0; i< (int)matched_2d_cur.size(); i++)
 	        {
 	            cv::Point2f cur_pt = matched_2d_cur[i];
@@ -503,7 +503,7 @@ bool KeyFrame::findConnection(KeyFrame* old_kf)
 	            cv::Mat old_img = old_kf->image;
 	            cv::hconcat(image, gap_image, gap_image);
 	            cv::hconcat(gap_image, old_img, gray_img);
-	            cvtColor(gray_img, loop_match_img, CV_GRAY2RGB);
+	            cvtColor(gray_img, loop_match_img, cv::COLOR_GRAY2RGB);
 	            for(int i = 0; i< (int)matched_2d_cur.size(); i++)
 	            {
 	                cv::Point2f cur_pt = matched_2d_cur[i];
@@ -522,9 +522,9 @@ bool KeyFrame::findConnection(KeyFrame* old_kf)
 	                cv::line(loop_match_img, matched_2d_cur[i], old_pt, cv::Scalar(0, 255, 0), 2, 8, 0);
 	            }
 	            cv::Mat notation(50, COL + gap + COL, CV_8UC3, cv::Scalar(255, 255, 255));
-	            putText(notation, "current frame: " + to_string(index) + "  sequence: " + to_string(sequence), cv::Point2f(20, 30), CV_FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(255), 3);
+	            putText(notation, "current frame: " + to_string(index) + "  sequence: " + to_string(sequence), cv::Point2f(20, 30), cv::FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(255), 3);
 
-	            putText(notation, "previous frame: " + to_string(old_kf->index) + "  sequence: " + to_string(old_kf->sequence), cv::Point2f(20 + COL + gap, 30), CV_FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(255), 3);
+	            putText(notation, "previous frame: " + to_string(old_kf->index) + "  sequence: " + to_string(old_kf->sequence), cv::Point2f(20 + COL + gap, 30), cv::FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(255), 3);
 	            cv::vconcat(notation, loop_match_img, loop_match_img);
 
 	            /*
@@ -537,8 +537,8 @@ bool KeyFrame::findConnection(KeyFrame* old_kf)
 	            if ((int)matched_2d_cur.size() > MIN_LOOP_NUM)
 	            {
 	            	/*
-	            	cv::imshow("loop connection",loop_match_img);  
-	            	cv::waitKey(10);  
+	            	cv::imshow("loop connection",loop_match_img);
+	            	cv::waitKey(10);
 	            	*/
 	            	cv::Mat thumbimage;
 	            	cv::resize(loop_match_img, thumbimage, cv::Size(loop_match_img.cols / 2, loop_match_img.rows / 2));
@@ -632,9 +632,9 @@ void KeyFrame::updatePose(const Eigen::Vector3d &_T_w_i, const Eigen::Matrix3d &
 
 /**
  * @brief 更新一些vio位姿，将回环修正的累计误差补偿进来
- * 
- * @param[in] _T_w_i 
- * @param[in] _R_w_i 
+ *
+ * @param[in] _T_w_i
+ * @param[in] _R_w_i
  */
 void KeyFrame::updateVioPose(const Eigen::Vector3d &_T_w_i, const Eigen::Matrix3d &_R_w_i)
 {
@@ -687,5 +687,3 @@ BriefExtractor::BriefExtractor(const std::string &pattern_file)
 
   m_brief.importPairs(x1, y1, x2, y2);	// dbow加载pattern用于后续计算描述子
 }
-
-
