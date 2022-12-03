@@ -4,8 +4,6 @@
 
 如果本仓库对你有用，欢迎star一下满足本人的虚荣心～
 
-PS：Momenta 语义slam，多传感器融合，自动标定还有大量HC，有意向同学可以联系xieqi@momenta.ai
-
 # VINS-Mono
 ## A Robust and Versatile Monocular Visual-Inertial State Estimator
 
